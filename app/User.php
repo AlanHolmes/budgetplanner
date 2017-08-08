@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Budgets relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author Alan Holmes
+     */
+    public function budgets()
+    {
+        return $this->hasMany(Budgets::class);
+    }
+
 }
