@@ -16,5 +16,6 @@
   @yield('content')
 </div>
 
+{{ svg_spritesheet() }}
 </body>
 </html>
