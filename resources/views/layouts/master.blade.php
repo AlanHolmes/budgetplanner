@@ -9,7 +9,7 @@
 
   <title>{{ config('app.name', 'Budget Planner') }}</title>
 
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 </head>
 <body>
 <div id="app">
