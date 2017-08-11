@@ -1,9 +1,12 @@
+// bootstrap 4 beta
+@import "node_modules/bootstrap/scss/bootstrap";
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+.full-height {
+  height: 100vh;
+}
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// bit of a hack to get around the fact the svg sprite sheet adds height
+// when using full-height
+body > div > svg {
+  height: 0; width: 0; position: absolute; visibility: hidden;
+}
