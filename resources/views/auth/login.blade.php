@@ -12,11 +12,17 @@
 
           <div class="card-body">
             <div class="form-group">
-              <input name="email" type="email" class="form-control" placeholder="Email Address">
+              <div class="input-group">
+                <span class="input-group-addon">@icon('envelope', 'zondicon-size-1')</span>
+                <input name="email" type="email" class="form-control" placeholder="Email Address">
+              </div>
             </div>
 
             <div class="form-group">
-              <input name="password" type="password" class="form-control" placeholder="Password">
+              <div class="input-group">
+                <span class="input-group-addon">@icon('lock-closed', 'zondicon-size-1')</span>
+                <input name="password" type="password" class="form-control" placeholder="Password">
+              </div>
             </div>
 
             <div class="form-group">
