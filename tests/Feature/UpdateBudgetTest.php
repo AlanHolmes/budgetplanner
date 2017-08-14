@@ -155,9 +155,9 @@ class UpdateBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/login');
 
-        $this->assertArraySubset($this->oldAttributes([
+        $this->assertModelMatchesData($budget, [
             'user_id' => $otherUser->id,
-        ]), $budget->fresh()->getAttributes());
+        ]);
     }
 
     /** @test */
@@ -166,7 +166,7 @@ class UpdateBudgetTest extends TestCase
         $user = factory(User::class)->create();
         $budget = factory(Budgets::class)->create($this->oldAttributes([
             'user_id' => $user->id,
-            'name' => 'Old Budget',
+            'name' => 'Existing Budget',
         ]));
 
         $response = $this->actingAs($user)->from("/budgets/{$budget->id}/edit")->patch("/budgets/{$budget->id}", $this->validParams([
@@ -177,10 +177,10 @@ class UpdateBudgetTest extends TestCase
         $response->assertRedirect("/budgets/{$budget->id}/edit");
         $response->assertSessionHasErrors('name');
 
-        $this->assertArraySubset($this->oldAttributes([
+        $this->assertModelMatchesData($budget, [
             'user_id' => $user->id,
-            'name' => 'Old Budget',
-        ]), $budget->fresh()->getAttributes());
+            'name' => 'Existing Budget',
+        ]);
     }
 
     /** @test */
@@ -189,7 +189,7 @@ class UpdateBudgetTest extends TestCase
         $user = factory(User::class)->create();
         $budget = factory(Budgets::class)->create($this->oldAttributes([
             'user_id' => $user->id,
-            'budget' => '200',
+            'budget' => '30000',
         ]));
 
         $response = $this->actingAs($user)->from("/budgets/{$budget->id}/edit")->patch("/budgets/{$budget->id}", $this->validParams([
@@ -200,10 +200,10 @@ class UpdateBudgetTest extends TestCase
         $response->assertRedirect("/budgets/{$budget->id}/edit");
         $response->assertSessionHasErrors('budget');
 
-        $this->assertArraySubset($this->oldAttributes([
+        $this->assertModelMatchesData($budget, [
             'user_id' => $user->id,
-            'budget' => '200',
-        ]), $budget->fresh()->getAttributes());
+            'budget' => '30000',
+        ]);
     }
 
     /** @test */
@@ -212,7 +212,7 @@ class UpdateBudgetTest extends TestCase
         $user = factory(User::class)->create();
         $budget = factory(Budgets::class)->create($this->oldAttributes([
             'user_id' => $user->id,
-            'budget' => '200',
+            'budget' => '30000',
         ]));
 
         $response = $this->actingAs($user)->from("/budgets/{$budget->id}/edit")->patch("/budgets/{$budget->id}", $this->validParams([
@@ -223,10 +223,10 @@ class UpdateBudgetTest extends TestCase
         $response->assertRedirect("/budgets/{$budget->id}/edit");
         $response->assertSessionHasErrors('budget');
 
-        $this->assertArraySubset($this->oldAttributes([
+        $this->assertModelMatchesData($budget, [
             'user_id' => $user->id,
-            'budget' => '200',
-        ]), $budget->fresh()->getAttributes());
+            'budget' => '30000',
+        ]);
     }
 
     /** @test */
@@ -235,7 +235,7 @@ class UpdateBudgetTest extends TestCase
         $user = factory(User::class)->create();
         $budget = factory(Budgets::class)->create($this->oldAttributes([
             'user_id' => $user->id,
-            'budget' => '200',
+            'budget' => '30000',
         ]));
 
         $response = $this->actingAs($user)->from("/budgets/{$budget->id}/edit")->patch("/budgets/{$budget->id}", $this->validParams([
@@ -246,10 +246,10 @@ class UpdateBudgetTest extends TestCase
         $response->assertRedirect("/budgets/{$budget->id}/edit");
         $response->assertSessionHasErrors('budget');
 
-        $this->assertArraySubset($this->oldAttributes([
+        $this->assertModelMatchesData($budget, [
             'user_id' => $user->id,
-            'budget' => '200',
-        ]), $budget->fresh()->getAttributes());
+            'budget' => '30000',
+        ]);
     }
 
     /** @test */

@@ -51,6 +51,30 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * Checks that the model attributes are the same as oldAttributes
+     * with given data overrides
+     *
+     * @param $model
+     * @param $data
+     * @param $useOldAttributes
+     *
+     * @author Alan Holmes
+     */
+    protected function assertModelMatchesData($model, $data, $useOldAttributes = true)
+    {
+        if ($useOldAttributes) {
+            $data = $this->oldAttributes($data);
+        }
+
+        $this->assertArraySubset(
+            $data,
+            $model->fresh()->getAttributes(),
+            false,
+            'The data in the model is not the same as the given data'
+        );
+    }
+
+    /**
      * Disables exception handling, so you can see the actual errors rather than a caught exception
      *
      * @author Alan Holmes
