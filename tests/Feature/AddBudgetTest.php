@@ -11,14 +11,12 @@ class AddBudgetTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private function validParams($overrides = [])
-    {
-        return array_merge([
-            'name' => 'My Monthly Budget',
-            'description' => 'Monthly spending money',
-            'budget' => '200'
-        ], $overrides);
-    }
+    protected $valid_params = [
+        'name' => 'My Monthly Budget',
+        'description' => 'Monthly spending money',
+        'budget' => '200'
+    ];
+
 
     /** @test */
     public function an_authenticated_user_can_view_the_create_budget_form()

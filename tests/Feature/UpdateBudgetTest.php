@@ -11,23 +11,16 @@ class UpdateBudgetTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private function oldAttributes($overrides = [])
-    {
-        return array_merge([
-            'name' => 'Old Budget',
-            'description' => 'Old description',
-            'budget' => '200'
-        ], $overrides);
-    }
-
-    private function validParams($overrides = [])
-    {
-        return array_merge([
-            'name' => 'New Budget',
-            'description' => 'New Description',
-            'budget' => '400'
-        ], $overrides);
-    }
+    protected $old_attributes = [
+        'name' => 'Old Budget',
+        'description' => 'Old description',
+        'budget' => '20000'
+    ];
+    protected $valid_params = [
+        'name' => 'New Budget',
+        'description' => 'New Description',
+        'budget' => '400'
+    ];
 
     /** @test */
     public function an_authenticated_user_can_view_the_edit_form_for_their_own_budgets()
@@ -141,9 +134,11 @@ class UpdateBudgetTest extends TestCase
 
         $response->assertStatus(404);
 
-        $this->assertArraySubset($this->oldAttributes([
-            'user_id' => $otherUser->id,
-        ]), $budget->fresh()->getAttributes());
+        tap($budget->fresh(), function ($budget) {
+            $this->assertEquals('Old Budget', $budget->name);
+            $this->assertEquals('Old description', $budget->description);
+            $this->assertEquals('20000', $budget->budget);
+        });
     }
 
     /** @test */

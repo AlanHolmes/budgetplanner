@@ -12,6 +12,9 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    protected $old_attributes =[];
+    protected $valid_params =[];
+
     protected function setUp()
     {
         parent::setUp();
@@ -19,6 +22,32 @@ abstract class TestCase extends BaseTestCase
         TestResponse::macro('data', function ($key) {
             return $this->original->getData()[$key];
         });
+    }
+
+    /**
+     * Get the tests default old attributes, and merges in any overrides
+     *
+     * @param array $overrides
+     *
+     * @return array
+     * @author Alan Holmes
+     */
+    protected function oldAttributes($overrides = [])
+    {
+        return array_merge($this->old_attributes, $overrides);
+    }
+
+    /**
+     * Gets the tests default valid params, and merges in any overrides
+     *
+     * @param array $overrides
+     *
+     * @return array
+     * @author Alan Holmes
+     */
+    protected function validParams($overrides = [])
+    {
+        return array_merge($this->valid_params, $overrides);
     }
 
     /**
