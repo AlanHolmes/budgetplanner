@@ -18,7 +18,9 @@ class CreateBudgetsTable extends Migration
             $table->unsignedInteger('user_id')->index();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('budget');
+            $table->unsignedInteger('budget');
+            $table->enum('frequency', ['monthly', 'weekly']);
+            $table->unsignedInteger('start_on');
             $table->timestamps();
         });
     }

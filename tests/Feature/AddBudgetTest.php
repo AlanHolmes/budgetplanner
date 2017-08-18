@@ -14,7 +14,9 @@ class AddBudgetTest extends TestCase
     protected $valid_params = [
         'name' => 'My Monthly Budget',
         'description' => 'Monthly spending money',
-        'budget' => '200'
+        'budget' => '200',
+        'frequency' => 'monthly',
+        'start_on' => 1,
     ];
 
 
@@ -46,7 +48,9 @@ class AddBudgetTest extends TestCase
         $response = $this->actingAs($user)->post('/budgets', [
             'name' => 'My Monthly Budget',
             'description' => 'Monthly spending money',
-            'budget' => '200.00'
+            'budget' => '200.00',
+            'frequency' => 'monthly',
+            'start_on' => '1',
         ]);
 
         $response->assertRedirect('/budgets');
@@ -57,6 +61,8 @@ class AddBudgetTest extends TestCase
             $this->assertEquals('My Monthly Budget', $budget->name);
             $this->assertEquals('Monthly spending money', $budget->description);
             $this->assertEquals('20000', $budget->budget);
+            $this->assertEquals('monthly', $budget->frequency);
+            $this->assertEquals('1', $budget->start_on);
         });
     }
 
@@ -147,5 +153,118 @@ class AddBudgetTest extends TestCase
 
             $this->assertNull($budget->description);
         });
+    }
+
+    /** @test */
+    public function frequency_is_required()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->from('/budgets/create')->post('/budgets', $this->validParams([
+            'frequency' => '',
+        ]));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/budgets/create');
+        $response->assertSessionHasErrors('frequency');
+        $this->assertEquals(0, Budgets::count());
+    }
+
+    /** @test */
+    public function frequency_doesnt_allow_non_valid_values()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->from('/budgets/create')->post('/budgets', $this->validParams([
+            'frequency' => 'not a valid value',
+        ]));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/budgets/create');
+        $response->assertSessionHasErrors('frequency');
+        $this->assertEquals(0, Budgets::count());
+    }
+
+    /** @test */
+    public function frequency_can_be_monthly()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->from('/budgets/create')->post('/budgets', $this->validParams([
+            'frequency' => 'monthly',
+        ]));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/budgets');
+
+        tap(Budgets::first(), function ($budget) use ($user) {
+            $this->assertTrue($budget->user->is($user));
+
+            $this->assertEquals('monthly', $budget->frequency);
+        });
+    }
+
+    /** @test */
+    public function frequency_can_be_weekly()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->from('/budgets/create')->post('/budgets', $this->validParams([
+            'frequency' => 'weekly',
+        ]));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/budgets');
+
+        tap(Budgets::first(), function ($budget) use ($user) {
+            $this->assertTrue($budget->user->is($user));
+
+            $this->assertEquals('weekly', $budget->frequency);
+        });
+    }
+
+    /** @test */
+    public function start_on_is_required()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->from('/budgets/create')->post('/budgets', $this->validParams([
+            'start_on' => '',
+        ]));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/budgets/create');
+        $response->assertSessionHasErrors('start_on');
+        $this->assertEquals(0, Budgets::count());
+    }
+
+    /** @test */
+    public function start_on_must_be_an_integer()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->from('/budgets/create')->post('/budgets', $this->validParams([
+            'start_on' => '3.5',
+        ]));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/budgets/create');
+        $response->assertSessionHasErrors('start_on');
+        $this->assertEquals(0, Budgets::count());
+    }
+
+    /** @test */
+    public function start_on_must_be_positive()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->from('/budgets/create')->post('/budgets', $this->validParams([
+            'start_on' => '-1',
+        ]));
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/budgets/create');
+        $response->assertSessionHasErrors('start_on');
+        $this->assertEquals(0, Budgets::count());
     }
 }

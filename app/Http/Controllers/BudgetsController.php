@@ -27,14 +27,18 @@ class BudgetsController extends Controller
     public function store()
     {
         $this->validate(request(), [
-           'name' => ['required'],
-           'budget' => ['required', 'numeric', 'min:5'],
+            'name' => ['required'],
+            'budget' => ['required', 'numeric', 'min:5'],
+            'frequency' => ['required', 'in:monthly,weekly'],
+            'start_on' => ['required', 'integer', 'min:0'],
         ]);
 
         Auth::user()->budgets()->create([
-           'name' => request('name'),
-           'description' => request('description'),
-           'budget' => request('budget') * 100,
+            'name' => request('name'),
+            'description' => request('description'),
+            'budget' => request('budget') * 100,
+            'frequency' => request('frequency'),
+            'start_on' => request('start_on'),
         ]);
 
         return redirect('/budgets');
@@ -70,6 +74,8 @@ class BudgetsController extends Controller
         $this->validate(request(), [
             'name' => ['required'],
             'budget' => ['required', 'numeric', 'min:5'],
+            'frequency' => ['required', 'in:monthly,weekly'],
+            'start_on' => ['required', 'integer', 'min:0'],
         ]);
 
 
@@ -77,6 +83,8 @@ class BudgetsController extends Controller
             'name' => request('name'),
             'description' => request('description'),
             'budget' => request('budget') * 100,
+            'frequency' => request('frequency'),
+            'start_on' => request('start_on'),
         ]);
 
         return redirect('/budgets');

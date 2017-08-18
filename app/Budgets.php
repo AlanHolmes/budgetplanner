@@ -9,7 +9,9 @@ class Budgets extends Model
     protected $fillable = [
         'name',
         'budget',
-        'description'
+        'description',
+        'frequency',
+        'start_on',
     ];
 
     /**
