@@ -24,4 +24,15 @@ class Budgets extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Returns the budget amount as a float
+     *
+     * @return string
+     * @author Alan Holmes
+     */
+    public function getBudgetAsFloatAttribute()
+    {
+        return number_format($this->budget / 100, 2, '.', '');
+    }
 }

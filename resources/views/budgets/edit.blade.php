@@ -52,7 +52,7 @@
                 <label for="budget">Amount</label>
                 <div class="input-group">
                   <span class="input-group-addon">&pound;</span>
-                  <input class="form-control{{ $errors->first('budget', ' is-invalid') }}" id="budget" name="budget" value="{{ old('budget', $budget->budget) }}" placeholder="1000.00">
+                  <input class="form-control{{ $errors->first('budget', ' is-invalid') }}" id="budget" name="budget" value="{{ old('budget', $budget->budget_as_float) }}" placeholder="1000.00">
                 </div>
               </div>
             </div>
