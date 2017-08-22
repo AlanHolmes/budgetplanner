@@ -16,6 +16,7 @@
   @yield('content')
 </div>
 
+<script src="{{ asset(mix('js/app.js')) }}" type="text/javascript"></script>
 {{ svg_spritesheet() }}
 </body>
 </html>

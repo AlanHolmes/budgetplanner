@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
     <div class="row full-height align-items-center justify-content-center">
-      <div class="col col col-md-8 col-lg-6">
+      <div class="col col-md-8 col-lg-6">
         <form action="/login" method="POST" class="card">
           {{ csrf_field() }}
           <h1 class="card-header text-center h6">
@@ -37,4 +37,5 @@
         </form>
       </div>
     </div>
+  </div>
 @endsection
