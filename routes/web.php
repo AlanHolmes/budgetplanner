@@ -2,6 +2,7 @@
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('budgets', 'BudgetsController@index');
     Route::get('budgets/create', 'BudgetsController@create');
     Route::post('budgets', 'BudgetsController@store');
     Route::get('budgets/{id}/edit', 'BudgetsController@edit');

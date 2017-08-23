@@ -32,5 +32,7 @@ $factory->define(App\Budgets::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'description' => $faker->sentence(),
         'budget' => $faker->randomNumber(3),
+        'frequency' => 'monthly',
+        'start_on' => $faker->numberBetween(1, 31),
     ];
 });

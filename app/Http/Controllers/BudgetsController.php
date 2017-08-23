@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\Auth;
 class BudgetsController extends Controller
 {
     /**
+     * Display the budgets
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author Alan Holmes
+     */
+    public function index()
+    {
+        return view('budgets.index', [
+            'budgets' => Auth::user()->budgets()->get()
+        ]);
+    }
+
+    /**
      * Load the create budget form
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
