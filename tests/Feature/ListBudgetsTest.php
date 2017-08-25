@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Budgets;
+use App\Budget;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -17,13 +17,13 @@ class ListBudgetsTest extends TestCase
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
 
-        $budgetA = factory(Budgets::class)->create([
+        $budgetA = factory(Budget::class)->create([
             'user_id' => $user->id,
         ]);
-        $otherUserBudget = factory(Budgets::class)->create([
+        $otherUserBudget = factory(Budget::class)->create([
             'user_id' => $otherUser->id,
         ]);
-        $budgetB = factory(Budgets::class)->create([
+        $budgetB = factory(Budget::class)->create([
             'user_id' => $user->id,
         ]);
 

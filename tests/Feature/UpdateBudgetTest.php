@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Budgets;
+use App\Budget;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -30,7 +30,7 @@ class UpdateBudgetTest extends TestCase
     public function an_authenticated_user_can_view_the_edit_form_for_their_own_budgets()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create([
+        $budget = factory(Budget::class)->create([
             'user_id' => $user->id,
         ]);
 
@@ -56,7 +56,7 @@ class UpdateBudgetTest extends TestCase
     {
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create([
+        $budget = factory(Budget::class)->create([
             'user_id' => $otherUser->id,
         ]);
 
@@ -69,7 +69,7 @@ class UpdateBudgetTest extends TestCase
     public function guests_are_asked_to_login_when_trying_to_view_the_edit_form_for_an_existing_budget()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create([
+        $budget = factory(Budget::class)->create([
             'user_id' => $user->id,
         ]);
 
@@ -92,7 +92,7 @@ class UpdateBudgetTest extends TestCase
     public function an_authenticate_user_can_update_their_own_budget()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create([
+        $budget = factory(Budget::class)->create([
             'user_id' => $user->id,
             'name' => 'Old Budget',
             'description' => 'Old description',
@@ -136,7 +136,7 @@ class UpdateBudgetTest extends TestCase
     {
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $otherUser->id,
         ]));
 
@@ -156,7 +156,7 @@ class UpdateBudgetTest extends TestCase
     {
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $otherUser->id,
         ]));
 
@@ -174,7 +174,7 @@ class UpdateBudgetTest extends TestCase
     public function name_is_required()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'name' => 'Existing Budget',
         ]));
@@ -197,7 +197,7 @@ class UpdateBudgetTest extends TestCase
     public function budget_is_required()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'budget' => '30000',
         ]));
@@ -220,7 +220,7 @@ class UpdateBudgetTest extends TestCase
     public function budget_must_be_numeric()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'budget' => '30000',
         ]));
@@ -243,7 +243,7 @@ class UpdateBudgetTest extends TestCase
     public function budget_must_be_at_least_5()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'budget' => '30000',
         ]));
@@ -266,7 +266,7 @@ class UpdateBudgetTest extends TestCase
     public function description_is_optional()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'description' => 'Old description',
         ]));
@@ -287,7 +287,7 @@ class UpdateBudgetTest extends TestCase
     public function frequency_is_required()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'frequency' => 'monthly',
         ]));
@@ -310,7 +310,7 @@ class UpdateBudgetTest extends TestCase
     public function frequency_doesnt_allow_non_valid_values()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'frequency' => 'monthly',
         ]));
@@ -333,7 +333,7 @@ class UpdateBudgetTest extends TestCase
     public function frequency_can_be_monthly()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'frequency' => 'weekly',
         ]));
@@ -354,7 +354,7 @@ class UpdateBudgetTest extends TestCase
     public function frequency_can_be_weekly()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'frequency' => 'monthly',
         ]));
@@ -375,7 +375,7 @@ class UpdateBudgetTest extends TestCase
     public function start_on_is_required()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'start_on' => '1',
         ]));
@@ -398,7 +398,7 @@ class UpdateBudgetTest extends TestCase
     public function start_on_must_be_an_integer()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'start_on' => '1',
         ]));
@@ -421,7 +421,7 @@ class UpdateBudgetTest extends TestCase
     public function start_on_must_be_positive()
     {
         $user = factory(User::class)->create();
-        $budget = factory(Budgets::class)->create($this->oldAttributes([
+        $budget = factory(Budget::class)->create($this->oldAttributes([
             'user_id' => $user->id,
             'start_on' => '1',
         ]));

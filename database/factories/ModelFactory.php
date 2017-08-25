@@ -24,7 +24,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Budgets::class, function (Faker\Generator $faker) {
+$factory->define(App\Budget::class, function (Faker\Generator $faker) {
     return [
         'user_id' => function () {
             return factory(App\User::class)->create()->id;

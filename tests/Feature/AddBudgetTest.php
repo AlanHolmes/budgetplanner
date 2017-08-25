@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Budgets;
+use App\Budget;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -55,7 +55,7 @@ class AddBudgetTest extends TestCase
 
         $response->assertRedirect('/budgets');
 
-        tap(Budgets::first(), function ($budget) use ($user) {
+        tap(Budget::first(), function ($budget) use ($user) {
             $this->assertTrue($budget->user->is($user));
 
             $this->assertEquals('My Monthly Budget', $budget->name);
@@ -73,7 +73,7 @@ class AddBudgetTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect('/login');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -88,7 +88,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('name');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -103,7 +103,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('budget');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -118,7 +118,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('budget');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -133,7 +133,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('budget');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -148,7 +148,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets');
 
-        tap(Budgets::first(), function ($budget) use ($user) {
+        tap(Budget::first(), function ($budget) use ($user) {
             $this->assertTrue($budget->user->is($user));
 
             $this->assertNull($budget->description);
@@ -167,7 +167,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('frequency');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -182,7 +182,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('frequency');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -197,7 +197,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets');
 
-        tap(Budgets::first(), function ($budget) use ($user) {
+        tap(Budget::first(), function ($budget) use ($user) {
             $this->assertTrue($budget->user->is($user));
 
             $this->assertEquals('monthly', $budget->frequency);
@@ -216,7 +216,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets');
 
-        tap(Budgets::first(), function ($budget) use ($user) {
+        tap(Budget::first(), function ($budget) use ($user) {
             $this->assertTrue($budget->user->is($user));
 
             $this->assertEquals('weekly', $budget->frequency);
@@ -235,7 +235,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('start_on');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -250,7 +250,7 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('start_on');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 
     /** @test */
@@ -265,6 +265,6 @@ class AddBudgetTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/budgets/create');
         $response->assertSessionHasErrors('start_on');
-        $this->assertEquals(0, Budgets::count());
+        $this->assertEquals(0, Budget::count());
     }
 }
