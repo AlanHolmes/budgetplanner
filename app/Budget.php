@@ -26,6 +26,17 @@ class Budget extends Model
     }
 
     /**
+     * Transactions relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author Alan Holmes
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    /**
      * Returns the budget amount as a float
      *
      * @return string
